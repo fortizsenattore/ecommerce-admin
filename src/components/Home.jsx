@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import NavbarTop from "./NavbarTop";
+import { Outlet } from "react-router-dom";
 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <>
+      <NavbarTop />
+      <Outlet />
+    </>
+  );
 }
 
-export default Home
+export default Home;
