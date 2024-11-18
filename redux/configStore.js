@@ -13,15 +13,13 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 
 /* import userReducer from "./userSlice";
-import productReducer from "./productSlice"; */
-import tokenReducer from "./tokenSlice";
 /* import cartReducer from "./cartSlice"; */
+import tokenReducer from "./tokenSlice";
+import productReducer from "./productSlice";
 
 const rootReducer = combineReducers({
-  user: userReducer,
-  product: productReducer,
   token: tokenReducer,
-  cart: cartReducer,
+  product: productReducer,
 });
 
 const persistConfig = {

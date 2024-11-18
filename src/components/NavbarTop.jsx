@@ -5,40 +5,8 @@ import { useEffect, useState } from "react";
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/tokenSlice";
 
 function NavbarTop() {
-  const token = useSelector((state) => state.token);
-  const dispatch = useDispatch();
-
-  const [modal, setModal] = useState(false);
-
-  const hideModal = () => {
-    setModal(false);
-  };
-
-  const showModal = () => {
-    setModal(true);
-  };
-
-  const goodbye = () => {
-    dispatch(logout(""));
-    setModal(false);
-  };
-
-  useEffect(() => {
-    const navbarElement = document.querySelector("#navbar1");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY >= 56) {
-        navbarElement.classList.remove("navbar-styles");
-        navbarElement.classList.add("scroll-navbar");
-      } else if (window.scrollY < 56) {
-        navbarElement.classList.add("navbar-styles");
-        navbarElement.classList.remove("scroll-navbar");
-      }
-    });
-  });
   return (
     <>
       <Navbar
@@ -53,7 +21,7 @@ function NavbarTop() {
             data-bs-theme="dark"
           />
           <Navbar.Offcanvas
-            className="background-night custom-offcanvas"
+            className="w-25 background-night custom-offcanvas"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
             placement="start"
@@ -85,6 +53,18 @@ function NavbarTop() {
                   Products
                   <i className="ms-auto bi bi-chevron-right"></i>
                 </NavLink>
+                
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "link-active m-0 ps-4 py-4"
+                      : "link-inactive m-0 ps-4 py-4"
+                  }
+                  to="/products"
+                >
+                  Brands
+                  <i className="ms-auto bi bi-chevron-right"></i>
+                </NavLink>
 
                 <NavLink
                   className={({ isActive }) =>
@@ -94,43 +74,36 @@ function NavbarTop() {
                   }
                   to="/about"
                 >
-                  About
+                  Orders
                   <i className="ms-auto bi bi-chevron-right"></i>
                 </NavLink>
-                {token === "" ? (
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? "link-active m-0 ps-4 py-4"
-                        : "link-inactive m-0 ps-4 py-4"
-                    }
-                    to="/login"
-                  >
-                    Login
-                    <i className="ms-auto bi bi-chevron-right"></i>
-                  </NavLink>
-                ) : (
-                  <NavLink
-                    onClick={showModal}
-                    className="link-inactive m-0 ps-4 py-4"
-                  >
-                    Logout
-                    <i className="ms-auto bi bi-chevron-right"></i>
-                  </NavLink>
-                )}
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "link-active m-0 ps-4 py-4"
+                      : "link-inactive m-0 ps-4 py-4"
+                  }
+                  to="/about"
+                >
+                  Users
+                  <i className="ms-auto bi bi-chevron-right"></i>
+                </NavLink>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "link-active m-0 ps-4 py-4"
+                      : "link-inactive m-0 ps-4 py-4"
+                  }
+                  to="/about"
+                >
+                  Admins
+                  <i className="ms-auto bi bi-chevron-right"></i>
+                </NavLink>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
-          <NavLink className="text-center">
-            <img
-              className="img-fluid navbar-logo-styles"
-              src={crownLogo}
-              alt="Brand Image"
-            />
-          </NavLink>
         </Container>
       </Navbar>
-      
     </>
   );
 }
