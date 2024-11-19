@@ -7,17 +7,20 @@ const productSlice = createSlice({
     getAllProducts(state, action) {
       return action.payload;
     },
-    editProduct(state, action){
-      const selectedCar = state.find((car)=> car.id === action.payload.id)
-      
+    editProduct(state, action) {
+      return state.map((car) => {
+        return car.id === action.payload.id ? action.payload : car;
+      });
     },
-    deleteProduct(state, action){
-      return state.filter((car)=> car.id !== action.payload)
-    }
-    
+    deleteProduct(state, action) {
+      return state.filter((car) => car.id !== action.payload);
+    },
+    createProduct(state, action) {
+      state.push(action.payload);
+    },
   },
 });
 
 const { actions, reducer } = productSlice;
-export const { getAllProducts, deleteProduct, editProduct} = actions;
+export const { getAllProducts, deleteProduct, editProduct, createProduct } = actions;
 export default reducer;
