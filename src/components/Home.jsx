@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarTop from "./NavbarTop";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Home() {
+
+  const token = useSelector((state) => state.token);
+  const navigate = useNavigate()
+
+  useEffect(()=> {
+    if (!token) return navigate("/login")
+  },[])
+
   return (
     <>
       <NavbarTop />
-      <div className="background-night color-text-night saira py-5">
+      <div className="background-night color-text-night saira vh-100 py-5">
         <div className="container overflow-hidden">
           {/* first 4 rectangules */}
           <div className="row mb-4">

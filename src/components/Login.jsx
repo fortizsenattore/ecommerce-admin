@@ -44,17 +44,10 @@ function Login() {
         />
         <div className="position-absolute px-5 div-login-styles shadow">
           <div className="d-flex flex-column align-items-center justify-content-center h-100">
-            <div className="mb-4">
-              <img
-                className="img-fluid logo-login-styles"
-                src="/crown-logo.png"
-                alt="logo crown motors"
-              />
-            </div>
             <h2 className="text-center fw-bold pb-3">Admin Login</h2>
             <form onSubmit={createToken} method="POST" className="form-styles">
               <label className="mb-2" htmlFor="email">
-                Sign in with your Crown Motors Admin ID:
+                Sign in with your Crown Motors Admin email:
               </label>
               <input
                 value={email}

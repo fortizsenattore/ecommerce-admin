@@ -5,17 +5,25 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBrands, deleteBrand, editBrand, createBrand } from "../../redux/BrandSlice";
 import NavbarTop from "./NavbarTop";
+import { useNavigate } from "react-router-dom";
 
 function Brands() {
   const dispatch = useDispatch();
   const brands = useSelector((state) => state.brand);
+
+  const token = useSelector((state) => state.token);
+  const navigate = useNavigate()
+
+  useEffect(()=> {
+    if (!token) return navigate("/login")
+  },[])
 
   useEffect(() => {
     const getBrands = async () => {
       const response = await axios({
         method: "GET",
         url: `${import.meta.env.VITE_API_URL}/brands`,
-        // headers: { authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${token}` },
       });
       console.log(response.data);
       dispatch(getAllBrands(response.data));
@@ -70,7 +78,7 @@ function Brands() {
       method: "PATCH",
       url: `${import.meta.env.VITE_API_URL}/brands/${brand.id}`,
       data: { name },
-      // headers: { authorization: `Bearer ${token}` },
+      headers: { authorization: `Bearer ${token}` },
     });
     dispatch(editBrand(call.data));
   };
@@ -81,8 +89,8 @@ function Brands() {
       method: "POST",
       url: `${import.meta.env.VITE_API_URL}/brands`,
       data: { name },
+      headers: { authorization: `Bearer ${token}` },
     });
-    console.log(call.data);
     dispatch(createBrand(call.data));
   };
 
@@ -91,6 +99,7 @@ function Brands() {
     const call = await axios({
       method: "DELETE",
       url: `${import.meta.env.VITE_API_URL}/brands/${brand.id}`,
+      headers: { authorization: `Bearer ${token}` },
     });
     dispatch(deleteBrand(brand.id));
   };

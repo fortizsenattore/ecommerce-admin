@@ -5,10 +5,17 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders, deleteOrder, editOrder, createOrder } from "../../redux/orderSlice";
 import NavbarTop from "./NavbarTop";
+import { useNavigate } from "react-router-dom";
 
 function Orders() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.order);
+  const token = useSelector((state) => state.token);
+  const navigate = useNavigate()
+
+  useEffect(()=> {
+    if (!token) return navigate("/login")
+  },[])
 
   const totalPurchase = (order) => {
     let sum = 0;
@@ -23,9 +30,8 @@ function Orders() {
       const response = await axios({
         method: "GET",
         url: `${import.meta.env.VITE_API_URL}/orders`,
-        // headers: { authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${token}` },
       });
-      console.log(response.data);
       dispatch(getAllOrders(response.data));
     };
     getOrders();
@@ -74,6 +80,7 @@ function Orders() {
       method: "PATCH",
       url: `${import.meta.env.VITE_API_URL}/orders/${order.id}`,
       data: { status, address },
+      headers: { authorization: `Bearer ${token}` },
     });
     dispatch(editOrder(call.data));
   };
@@ -83,6 +90,7 @@ function Orders() {
     const call = await axios({
       method: "DELETE",
       url: `${import.meta.env.VITE_API_URL}/orders/${order.id}`,
+      headers: { authorization: `Bearer ${token}` },
     });
     dispatch(deleteOrder(order.id));
   };
@@ -149,7 +157,7 @@ function Orders() {
                       ></i>
                       <i
                         onClick={(event) => handleDelete(order, event)}
-                        className="ms-2 bi bi-trash cursor-pointer text-primary"
+                        // className="ms-2 bi bi-trash cursor-pointer text-primary"
                       ></i>
                     </td>
                   </tr>

@@ -5,18 +5,24 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAdmins, deleteAdmin, editAdmin, createAdmin } from "../../redux/AdminSlice";
 import NavbarTop from "./NavbarTop";
+import { useNavigate } from "react-router-dom";
 
 function Admins() {
   const dispatch = useDispatch();
   const admins = useSelector((state) => state.admin);
   const token = useSelector((state) => state.token);
+  const navigate = useNavigate()
+
+  useEffect(()=> {
+    if (!token) return navigate("/login")
+  },[])
 
   useEffect(() => {
     const getAdmins = async () => {
       const response = await axios({
         method: "GET",
         url: `${import.meta.env.VITE_API_URL}/admins`,
-       /*  headers: { authorization: `Bearer ${token}` }, */
+        headers: { authorization: `Bearer ${token}` },
       });
       console.log(response.data);
       dispatch(getAllAdmins(response.data));
@@ -83,7 +89,7 @@ function Admins() {
       method: "PATCH",
       url: `${import.meta.env.VITE_API_URL}/admins/${admin.id}`,
       data: { firstname, lastname, email },
-      // headers: { authorization: `Bearer ${token}` },
+      headers: { authorization: `Bearer ${token}` },
     });
     console.log(call.data);
     dispatch(editAdmin(call.data));
@@ -96,7 +102,7 @@ function Admins() {
       method: "POST",
       url: `${import.meta.env.VITE_API_URL}/admins`,
       data: { firstname, lastname, email, password },
-      // headers: { authorization: `Bearer ${token}` },
+      headers: { authorization: `Bearer ${token}` },
     });
     console.log(call.data);
     dispatch(createAdmin(call.data));
