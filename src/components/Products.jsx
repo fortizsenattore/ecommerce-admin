@@ -11,17 +11,19 @@ import {
 } from "../../redux/productSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Products() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product);
   const brands = useSelector((state) => state.brand);
   const token = useSelector((state) => state.token);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=> {
-    if (!token) return navigate("/login")
-  },[])
+  useEffect(() => {
+    if (!token) return navigate("/login");
+    setTimeout(() => toast.info("You need to login to access the Products´ section"), 800);
+  }, []);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -45,7 +47,7 @@ function Products() {
   const [price, setPrice] = useState(car?.price);
   const [stock, setStock] = useState(car?.stock);
   const [year, setYear] = useState(car?.year);
-  const [power, setPower] = useState(car?.power);
+  const [engine, setEngine] = useState(car?.engine);
   const [brandId, setBrandId] = useState(car?.brandId);
 
   const handleModel = (e) => {
@@ -66,8 +68,8 @@ function Products() {
   const handleYear = (e) => {
     setYear(e.target.value);
   };
-  const handlePower = (e) => {
-    setPower(e.target.value);
+  const handleEngine = (e) => {
+    setEngine(e.target.value);
   };
   const handleBrandId = (e) => {
     setBrandId(e.target.value);
@@ -109,7 +111,7 @@ function Products() {
     const call = await axios({
       method: "PATCH",
       url: `${import.meta.env.VITE_API_URL}/products/${car.id}`,
-      data: { model, description, featured, price, stock, year, power },
+      data: { model, description, featured, price, stock, year, engine },
       headers: { authorization: `Bearer ${token}` },
     });
     dispatch(editProduct(call.data));
@@ -117,11 +119,12 @@ function Products() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
     const call = await axios({
       method: "POST",
       url: `${import.meta.env.VITE_API_URL}/products`,
-      data: { model, description, featured, price, stock, year, power, brandId },
-      headers: { authorization: `Bearer ${token}` },
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data", authorization: `Bearer ${token}` },
     });
     dispatch(createProduct(call.data));
   };
@@ -224,25 +227,25 @@ function Products() {
                 placeholder={car?.model}
                 onChange={handleModel}
               />
-              <label className="mb-1" htmlFor="Description">
+              <label className="mb-1" htmlFor="description">
                 Description
               </label>
               <input
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Description"
-                name="Description"
+                id="description"
+                name="description"
                 placeholder={car?.description}
                 onChange={handleDescription}
               />
-              <label className="mb-1" htmlFor="Featured">
+              <label className="mb-1" htmlFor="featured">
                 Featured
               </label>
               <select
                 class="form-select mb-3 input-modal-styles rounded-0"
                 placeholder={car?.featured}
-                id="Featured"
-                name="Featured"
+                id="featured"
+                name="featured"
                 onChange={handleFeatured}
               >
                 {car?.featured ? <option selected>True</option> : <option selected>False</option>}
@@ -252,49 +255,49 @@ function Products() {
                   <option value="1">True</option>
                 )}
               </select>
-              <label className="mb-1" htmlFor="Price">
+              <label className="mb-1" htmlFor="price">
                 Price
               </label>
               <input
                 onChange={handlePrice}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Price"
-                name="Price"
+                id="price"
+                name="price"
                 placeholder={formatNumber(car?.price, 0)}
               />
-              <label className="mb-1" htmlFor="Stock">
+              <label className="mb-1" htmlFor="stock">
                 Stock
               </label>
               <input
                 onChange={handleStock}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Stock"
-                name="Stock"
+                id="stock"
+                name="stock"
                 placeholder={car?.stock}
               />
-              <label className="mb-1" htmlFor="Year">
+              <label className="mb-1" htmlFor="year">
                 Year
               </label>
               <input
                 onChange={handleYear}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Year"
-                name="Year"
+                id="year"
+                name="year"
                 placeholder={car?.year}
               />
-              <label className="mb-1" htmlFor="Power">
-                Power
+              <label className="mb-1" htmlFor="engine">
+                Engine
               </label>
               <input
-                onChange={handlePower}
+                onChange={handleEngine}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Power"
-                name="Power"
-                placeholder={car?.power}
+                id="engine"
+                name="engine"
+                placeholder={car?.engine}
               />{" "}
               <div className="d-flex justify-content-end">
                 <button
@@ -328,13 +331,13 @@ function Products() {
             <p className="m-0 saira-expanded-bold">Create a new product</p>
             <hr />
             <form onSubmit={handleCreate} method="POST">
-              <label className="mb-1" htmlFor="Featured">
+              <label className="mb-1" htmlFor="brandId">
                 Brand
               </label>
               <select
                 className="form-select mb-3 input-modal-styles rounded-0"
-                id="BrandId"
-                name="BrandId"
+                id="brandId"
+                name="brandId"
                 onChange={handleBrandId}
               >
                 <option disabled>Choose a brand</option>
@@ -354,69 +357,79 @@ function Products() {
                 name="model"
                 onChange={handleModel}
               />
-              <label className="mb-1" htmlFor="Description">
+              <label className="mb-1" htmlFor="images">
+                Images
+              </label>
+              <input
+                className="form-control mb-3 input-modal-styles rounded-0"
+                type="file"
+                id="images"
+                name="images"
+                onChange={handleModel}
+              />
+              <label className="mb-1" htmlFor="description">
                 Description
               </label>
               <input
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Description"
-                name="Description"
+                id="description"
+                name="description"
                 onChange={handleDescription}
               />
-              <label className="mb-1" htmlFor="Featured">
+              <label className="mb-1" htmlFor="featured">
                 Featured
               </label>
               <select
                 className="form-select mb-3 input-modal-styles rounded-0"
                 placeholder={car?.featured}
-                id="Featured"
-                name="Featured"
+                id="featured"
+                name="featured"
                 onChange={handleFeatured}
               >
                 <option disabled>Choose an option</option>
                 <option value="0">False</option>
                 <option value="1">True</option>
               </select>
-              <label className="mb-1" htmlFor="Price">
+              <label className="mb-1" htmlFor="price">
                 Price
               </label>
               <input
                 onChange={handlePrice}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Price"
-                name="Price"
+                id="price"
+                name="price"
               />
-              <label className="mb-1" htmlFor="Stock">
+              <label className="mb-1" htmlFor="stock">
                 Stock
               </label>
               <input
                 onChange={handleStock}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Stock"
-                name="Stock"
+                id="stock"
+                name="stock"
               />
-              <label className="mb-1" htmlFor="Year">
+              <label className="mb-1" htmlFor="year">
                 Year
               </label>
               <input
                 onChange={handleYear}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Year"
-                name="Year"
+                id="year"
+                name="year"
               />
-              <label className="mb-1" htmlFor="Power">
-                Power
+              <label className="mb-1" htmlFor="engine">
+                Engine
               </label>
               <input
-                onChange={handlePower}
+                onChange={handleEngine}
                 className="form-control mb-3 input-modal-styles rounded-0"
                 type="text"
-                id="Power"
-                name="Power"
+                id="engine"
+                name="engine"
               />{" "}
               <div className="d-flex justify-content-end">
                 <button

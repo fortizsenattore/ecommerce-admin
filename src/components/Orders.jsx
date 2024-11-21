@@ -6,16 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders, deleteOrder, editOrder, createOrder } from "../../redux/orderSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Orders() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.order);
   const token = useSelector((state) => state.token);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=> {
-    if (!token) return navigate("/login")
-  },[])
+  useEffect(() => {
+    if (!token) return navigate("/login");
+    setTimeout(() => toast.info("You need to login to access the Orders´ section"), 800);
+  }, []);
 
   const totalPurchase = (order) => {
     let sum = 0;
@@ -99,9 +101,8 @@ function Orders() {
     orders && (
       <>
         <NavbarTop />
-
         <div className="color-text-our-white background-night saira min-vh-100">
-          <div className="container py-5 ">
+          <div className="container py-5 min-vh-100">
             <div className="d-flex mb-4 align-items-center mt-5">
               {/* Buscador */}
               <form className="d-flex w-75 rounded p-0">
@@ -121,7 +122,7 @@ function Orders() {
             </div>
             <h1 className="saira-expanded-more-bold mb-2">Orders</h1>
             {/* Tabla */}
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover responsive variant="dark">
               <thead>
                 <tr>
                   <th>Id</th>
@@ -129,7 +130,7 @@ function Orders() {
                   <th>Status</th>
                   <th>Address</th>
                   <th>List</th>
-                  <th>Total Purchase</th>
+                  <th>Total</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -191,7 +192,7 @@ function Orders() {
                 <option selected disabled>
                   Choose an option
                 </option>
-                <option className="background-gold" value="Pending">
+                <option className="background-darkBlue" value="Pending">
                   Pending
                 </option>
                 <option className="bg-primary" value="On track">
@@ -232,9 +233,6 @@ function Orders() {
             </form>
           </Modal.Body>
         </Modal>
-
-
-        
       </>
     )
   );

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllBrands, deleteBrand, editBrand, createBrand } from "../../redux/BrandSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Brands() {
   const dispatch = useDispatch();
@@ -16,20 +17,8 @@ function Brands() {
 
   useEffect(()=> {
     if (!token) return navigate("/login")
+       setTimeout(() => toast.info("You need to login to access the Brands´ section"), 800);
   },[])
-
-  useEffect(() => {
-    const getBrands = async () => {
-      const response = await axios({
-        method: "GET",
-        url: `${import.meta.env.VITE_API_URL}/brands`,
-        headers: { authorization: `Bearer ${token}` },
-      });
-      console.log(response.data);
-      dispatch(getAllBrands(response.data));
-    };
-    getBrands();
-  }, []);
 
   const [modalEdit, setModalEdit] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);

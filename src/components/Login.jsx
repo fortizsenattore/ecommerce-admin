@@ -3,11 +3,12 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [notAuth, setNotAuth] = useState();
+  const [notAuth, setNotAuth] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

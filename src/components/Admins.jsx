@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllAdmins, deleteAdmin, editAdmin, createAdmin } from "../../redux/AdminSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Admins() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function Admins() {
 
   useEffect(()=> {
     if (!token) return navigate("/login")
+       setTimeout(() => toast.info("You need to login to access the Admins´ section"), 800);
   },[])
 
   useEffect(() => {

@@ -11,6 +11,7 @@ import Login from "./components/Login.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../redux/configStore.js";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -40,11 +41,24 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
-  </StrictMode>,
+  <>
+    <StrictMode>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
+      </Provider>
+    </StrictMode>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={true}
+      closeOnClick={true}
+      pauseOnHover={false}
+      draggable={true}
+      progress={undefined}
+      theme="dark"
+    />
+    ,
+  </>,
 );
