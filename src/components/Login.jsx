@@ -45,10 +45,10 @@ function Login() {
         />
         <div className="position-absolute px-5 div-login-styles shadow">
           <div className="d-flex flex-column align-items-center justify-content-center h-100">
-            <h2 className="text-center fw-bold pb-3">Admin Login</h2>
+            <h2 className="text-center fw-bold pb-3">Welcome Sir</h2>
             <form onSubmit={createToken} method="POST" className="form-styles">
               <label className="mb-2" htmlFor="email">
-                Sign in with your Crown Motors Admin email:
+                Login with your admin credentials:
               </label>
               <input
                 value={email}
@@ -78,7 +78,7 @@ function Login() {
                   <p>Invalid Credentials...</p>
                 </div>
               )}
-              <button className="button-checkout fw-bold py-2 mb-3 title-responsive">Login</button>
+              <button className="button-login fw-bold py-2 mb-3 title-responsive">Login</button>
             </form>
           </div>
         </div>

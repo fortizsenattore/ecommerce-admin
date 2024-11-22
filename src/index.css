@@ -59,12 +59,16 @@ body {
   color: var(--offWhite) !important;
 }
 
-.color-text-our-darkgreen {
+.color-text-lightBlue {
   color: var(--lightBlue);
 }
 
-.color-text-gold {
+.color-text-darkBlue {
   color: var(--darkBlue);
+}
+
+.color-text-blizzardBlue {
+  color: var(--blizzardBlue);
 }
 
 .color-text-night {
@@ -115,6 +119,12 @@ body {
   display: flex;
 }
 
+.form-control:focus {
+  color: rgba(255, 0, 0, 0);
+  background-color: rgba(255, 0, 0, 0);
+  box-shadow: none !important;
+}
+
 .button-yes-modal {
   border: 2px solid var(--brilliantBlue);
   background: var(--night);
@@ -150,22 +160,36 @@ body {
   width: 0px;
 }
 
-.button-search {
+.input-login-styles {
+  color: var(--offWhite) !important;
+  background-color: var(--night);
+}
+
+.input-login-styles:target {
+  color: var(--offWhite) !important;
   background: var(--night);
-  border: 2px solid var(--darkBlue);
+}
+
+.button-search {
+  background: rgba(255, 0, 0, 0);
+  border: 2px solid var(--blizzardBlue);
   border-left: none;
   color: var(--offwhite);
   transition: all 0.4s ease-in-out;
 }
 
 .button-search:hover {
-  background: var(--offwhite) !important;
+  background: var(--blizzardBlue) !important;
   color: var(--night) !important;
 }
 
 .buscador-styles {
-  border: 2px solid var(--darkBlue) !important;
+  border: 2px solid var(--blizzardBlue) !important;
   border-right: none;
+  background-color: rgba(255, 0, 0, 0);
+}
+.buscador {
+  height: 42px;
 }
 
 .cursor-pointer {
@@ -210,26 +234,47 @@ body {
   align-items: center !important;
 }
 
-.button-checkout {
-  width: 100%;
-  border: 2px solid var(--darkBlue);
-  color: var(--night);
-  background-color: var(--offWhite);
-  transition: all 0.4s ease-in-out;
-}
-
 .background-night-navbar {
   background-color: rgba(12, 9, 13, 0.9);
 }
 
-.button-checkout:hover {
-  color: var(--offWhite);
-  background-color: var(--nightTransparency);
+.button-login {
+  width: 100%;
+  border: 2px solid var(--blizzardBlue);
+  background-color: #0c090d00;
+  color: var(--offwhite);
+  transition: all 0.4s ease-in-out;
 }
 
+.button-login:hover {
+  color: var(--night);
+  background-color: var(--blizzardBlue);
+}
+
+.background-1-home {
+  background-color: #c9f2c7;
+}
+
+.background-2-home {
+  background-color: #ACECA1;
+}
+
+.background-3-home {
+  background-color: #96BE8C;
+}
+
+.background-4-home {
+  background-color: #629460
+}
 .navbar-styles {
   width: 100%;
   height: 100%;
+}
+
+.scroll-table {
+  overflow: scroll;
+  max-height: 76vh;
+  scroll-behavior: smooth;
 }
 
 @media (max-width: 991px) {

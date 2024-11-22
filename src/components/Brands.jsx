@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBrands, deleteBrand, editBrand, createBrand } from "../../redux/BrandSlice";
+import { deleteBrand, editBrand, createBrand } from "../../redux/BrandSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,12 +13,14 @@ function Brands() {
   const brands = useSelector((state) => state.brand);
 
   const token = useSelector((state) => state.token);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=> {
-    if (!token) return navigate("/login")
-       setTimeout(() => toast.info("You need to login to access the Brands´ section"), 800);
-  },[])
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      setTimeout(() => toast.info("You need to login to access the Brands´ section"), 800);
+    }
+  }, [token]);
 
   const [modalEdit, setModalEdit] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);
@@ -96,63 +98,70 @@ function Brands() {
   return (
     brands && (
       <>
-        <NavbarTop />
-
-        <div className="color-text-our-white background-night saira min-vh-100">
-          <div className="container py-5 ">
-            <div className="d-flex mb-4 align-items-center mt-5">
-              {/* Buscador */}
-              <form className="d-flex w-75 rounded p-0">
-                <label hidden htmlFor="carSearcher">
-                  hey
-                </label>
-                <input
-                  className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start background-night"
-                  name="carSearcher"
-                  id="carSearcher"
-                />
-                <button className="button-search rounded-end fw-bold px-3 py-3 w-25 m-0 h-100">
-                  Search
-                  <i className="bi bi-search ms-2"></i>
-                </button>
-              </form>
-              {/* Boton + */}
-              <div className="ms-auto">
-                <i
-                  className="fs-1 color-text-gold bi bi-plus-circle cursor-pointer"
-                  onClick={showModalCreate}
-                ></i>
+        <div className="container-fluid m-0 p-0">
+          <div className="row m-0 p-0">
+            <div className="col-2 m-0 p-0 background-night-navbar vh-100">
+              <NavbarTop />
+            </div>
+            <div className="col-10 mb-4 pt-4 justify-content-center color-text-our-white saira">
+              <div className="container">
+                <div className="d-flex mb-4 align-items-center">
+                  {/* Buscador */}
+                  <form className="d-flex w-50 buscador rounded p-0">
+                    <label hidden htmlFor="carSearcher">
+                      hey
+                    </label>
+                    <input
+                      className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
+                      name="carSearcher"
+                      id="carSearcher"
+                      placeholder="Look into the brands"
+                    />
+                    <button className="button-search rounded-end fw-bold px-3 m-0 h-100">
+                      <i className="bi bi-search"></i>
+                    </button>
+                  </form>
+                  {/* Boton + */}
+                </div>
+                <div className="d-flex">
+                  <h1 className="saira-expanded-more-bold mb-2">Brands</h1>
+                  <div className="ms-auto">
+                    <i
+                      className="fs-1 color-text-blizzardBlue bi bi-plus-circle cursor-pointer"
+                      onClick={showModalCreate}
+                    ></i>
+                  </div>
+                </div>
+                {/* Tabla */}
+                <Table striped bordered hover variant="light">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Brand</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {brands?.map((brand) => (
+                      <tr key={brand.id}>
+                        <td>{brand?.id}</td>
+                        <td>{brand?.name}</td>
+                        <td>
+                          <i
+                            onClick={() => showModalEdit(brand)}
+                            className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
+                          ></i>
+                          <i
+                            onClick={(event) => handleDelete(brand, event)}
+                            className="ms-2 bi bi-trash cursor-pointer text-primary"
+                          ></i>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
               </div>
             </div>
-            <h1 className="saira-expanded-more-bold mb-2">Brands</h1>
-            {/* Tabla */}
-            <Table striped bordered hover variant="dark">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Brand</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {brands?.map((brand) => (
-                  <tr key={brand.id}>
-                    <td>{brand?.id}</td>
-                    <td>{brand?.name}</td>
-                    <td>
-                      <i
-                        onClick={() => showModalEdit(brand)}
-                        className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
-                      ></i>
-                      <i
-                        onClick={(event) => handleDelete(brand, event)}
-                        className="ms-2 bi bi-trash cursor-pointer text-primary"
-                      ></i>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
           </div>
         </div>
 

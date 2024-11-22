@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
-import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
+import Product from "./Product";
 import {
   getAllProducts,
   deleteProduct,
@@ -12,18 +12,21 @@ import {
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import CreateProductModal from "./CreateProductModal";
 
 function Products() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const products = useSelector((state) => state.product);
   const brands = useSelector((state) => state.brand);
   const token = useSelector((state) => state.token);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) return navigate("/login");
-    setTimeout(() => toast.info("You need to login to access the Products´ section"), 800);
-  }, []);
+    if (!token) {
+      navigate("/login");
+      setTimeout(() => toast.info("You need to login to access the Products´ section"), 800);
+    }
+  }, [token]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -37,96 +40,14 @@ function Products() {
     getProducts();
   }, []);
 
-  const [modalEdit, setModalEdit] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);
-  const [car, setCar] = useState(null);
-
-  const [model, setModel] = useState(car?.model);
-  const [description, setDescription] = useState(car?.description);
-  const [featured, setFeatured] = useState(car?.featured);
-  const [price, setPrice] = useState(car?.price);
-  const [stock, setStock] = useState(car?.stock);
-  const [year, setYear] = useState(car?.year);
-  const [engine, setEngine] = useState(car?.engine);
-  const [brandId, setBrandId] = useState(car?.brandId);
-
-  const handleModel = (e) => {
-    setModel(e.target.value);
-  };
-  const handleDescription = (e) => {
-    setDescription(e.target.value);
-  };
-  const handleFeatured = (e) => {
-    setFeatured(e.target.value);
-  };
-  const handlePrice = (e) => {
-    setPrice(e.target.value);
-  };
-  const handleStock = (e) => {
-    setStock(e.target.value);
-  };
-  const handleYear = (e) => {
-    setYear(e.target.value);
-  };
-  const handleEngine = (e) => {
-    setEngine(e.target.value);
-  };
-  const handleBrandId = (e) => {
-    setBrandId(e.target.value);
-  };
-
-  const formatNumber = (num, fixed) => {
-    const array = Math.floor(num).toString().split("");
-    let index = -3;
-    while (array.length + index > 0) {
-      array.splice(index, 0, ".");
-      index -= 4;
-    }
-    if (fixed > 0) {
-      const decimalPart = num.toFixed(fixed).split(".")[1];
-      return array.join("") + "," + decimalPart;
-    }
-    return array.join("");
-  };
-
-  const hideModalEdit = () => {
-    setModalEdit(false);
-  };
 
   const hideModalCreate = () => {
     setModalCreate(false);
   };
 
-  const showModalEdit = (car) => {
-    setCar(car);
-    setModalEdit(true);
-  };
-
   const showModalCreate = () => {
     setModalCreate(true);
-  };
-
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    const call = await axios({
-      method: "PATCH",
-      url: `${import.meta.env.VITE_API_URL}/products/${car.id}`,
-      data: { model, description, featured, price, stock, year, engine },
-      headers: { authorization: `Bearer ${token}` },
-    });
-    dispatch(editProduct(call.data));
-  };
-
-  const handleCreate = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const call = await axios({
-      method: "POST",
-      url: `${import.meta.env.VITE_API_URL}/products`,
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data", authorization: `Bearer ${token}` },
-    });
-    dispatch(createProduct(call.data));
   };
 
   const handleDelete = async (car, event) => {
@@ -140,317 +61,71 @@ function Products() {
   };
 
   return (
-    products && (
+    products &&
+    brands && (
       <>
-        <NavbarTop />
-        <div className="color-text-our-white background-night saira">
-          <div className="container py-5 ">
-            <div className="d-flex mb-4 align-items-center mt-5">
-              {/* Buscador */}
-              <form className="d-flex w-75 rounded p-0">
-                <label hidden htmlFor="carSearcher">
-                  hey
-                </label>
-                <input
-                  className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start background-night"
-                  name="carSearcher"
-                  id="carSearcher"
-                />
-                <button className="button-search rounded-end fw-bold px-3 py-3 w-25 m-0 h-100">
-                  Search
-                  <i className="bi bi-search ms-2"></i>
-                </button>
-              </form>
-              {/* Boton + */}
-              <div className="ms-auto">
-                <i
-                  className="fs-1 color-text-gold bi bi-plus-circle cursor-pointer"
-                  onClick={showModalCreate}
-                ></i>
+        <div className="container-fluid m-0 p-0">
+          <div className="row m-0 p-0">
+            <div className="col-2 m-0 p-0 background-night-navbar vh-100">
+              <NavbarTop />
+            </div>
+            <div className="col-10 mb-4 pt-4 justify-content-center color-text-our-white saira">
+              <div className="container">
+                <div className="d-flex mb-4 align-items-center">
+                  {/* Buscador */}
+                  <form className="d-flex w-50 buscador rounded p-0">
+                    <label hidden htmlFor="carSearcher">
+                      hey
+                    </label>
+                    <input
+                      className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
+                      name="carSearcher"
+                      id="carSearcher"
+                      placeholder="Search your product"
+                    />
+                    <button className="button-search rounded-end fw-bold px-3 m-0 h-100">
+                      <i className="bi bi-search"></i>
+                    </button>
+                  </form>
+                  {/* Boton + */}
+                </div>
+                <div className="d-flex">
+                  <h1 className="saira-expanded-more-bold mb-2">Products</h1>
+                  <div className="ms-auto">
+                    <i
+                      className="fs-1 color-text-blizzardBlue bi bi-plus-circle cursor-pointer"
+                      onClick={showModalCreate}
+                    ></i>
+                  </div>
+                </div>
+                {/* Tabla */}
+                <div className="scroll-table">
+                  <Table striped bordered hover responsive variant="lig">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Model</th>
+                        <th>Brand</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {products?.map((car) => (
+                        <Product key={car.id} car={car} />
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
               </div>
             </div>
-            <h1 className="saira-expanded-more-bold mb-2">Products</h1>
-            {/* Tabla */}
-            <Table striped bordered hover variant="dark">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Model</th>
-                  <th>Brand</th>
-                  <th>Stock</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products?.map((car) => (
-                  <tr key={car.id}>
-                    <td>{car?.id}</td>
-                    <td>{car?.model}</td>
-                    <td>{car?.brand?.name}</td>
-                    <td>{car?.stock}</td>
-                    <td>
-                      <i
-                        onClick={() => showModalEdit(car)}
-                        className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
-                      ></i>
-                      <i
-                        onClick={(event) => handleDelete(car, event)}
-                        className="ms-2 bi bi-trash cursor-pointer text-primary"
-                      ></i>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
           </div>
         </div>
-
-        {/* modal edit */}
-
-        <Modal show={modalEdit} onHide={hideModalEdit}>
-          <Modal.Body className="background-night color-text-our-white saira p-4 position-relative">
-            <i
-              onClick={hideModalEdit}
-              className="bi bi-x x-modal-styles position-absolute cursor-pointer"
-            ></i>
-            <p className="m-0 saira-expanded-bold">Make the changes you desire</p>
-            <hr />
-            <form onSubmit={handleEdit}>
-              <label className="mb-1" htmlFor="model">
-                Model
-              </label>
-              <input
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="model"
-                name="model"
-                placeholder={car?.model}
-                onChange={handleModel}
-              />
-              <label className="mb-1" htmlFor="description">
-                Description
-              </label>
-              <input
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="description"
-                name="description"
-                placeholder={car?.description}
-                onChange={handleDescription}
-              />
-              <label className="mb-1" htmlFor="featured">
-                Featured
-              </label>
-              <select
-                class="form-select mb-3 input-modal-styles rounded-0"
-                placeholder={car?.featured}
-                id="featured"
-                name="featured"
-                onChange={handleFeatured}
-              >
-                {car?.featured ? <option selected>True</option> : <option selected>False</option>}
-                {car?.featured == true ? (
-                  <option value="0">False</option>
-                ) : (
-                  <option value="1">True</option>
-                )}
-              </select>
-              <label className="mb-1" htmlFor="price">
-                Price
-              </label>
-              <input
-                onChange={handlePrice}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="price"
-                name="price"
-                placeholder={formatNumber(car?.price, 0)}
-              />
-              <label className="mb-1" htmlFor="stock">
-                Stock
-              </label>
-              <input
-                onChange={handleStock}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="stock"
-                name="stock"
-                placeholder={car?.stock}
-              />
-              <label className="mb-1" htmlFor="year">
-                Year
-              </label>
-              <input
-                onChange={handleYear}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="year"
-                name="year"
-                placeholder={car?.year}
-              />
-              <label className="mb-1" htmlFor="engine">
-                Engine
-              </label>
-              <input
-                onChange={handleEngine}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="engine"
-                name="engine"
-                placeholder={car?.engine}
-              />{" "}
-              <div className="d-flex justify-content-end">
-                <button
-                  type="button"
-                  onClick={hideModalEdit}
-                  className="button-no-modal saira-bold me-2"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  onClick={hideModalEdit}
-                  className="button-yes-modal saira-bold ms-2"
-                >
-                  Save changes
-                </button>
-              </div>
-            </form>
-          </Modal.Body>
-        </Modal>
-
-        {/*  modal create */}
-
-        <Modal show={modalCreate} onHide={hideModalCreate}>
-          <Modal.Body className="background-night color-text-our-white saira p-4 position-relative">
-            <i
-              onClick={hideModalCreate}
-              className="bi bi-x x-modal-styles position-absolute cursor-pointer"
-            ></i>
-            <p className="m-0 saira-expanded-bold">Create a new product</p>
-            <hr />
-            <form onSubmit={handleCreate} method="POST">
-              <label className="mb-1" htmlFor="brandId">
-                Brand
-              </label>
-              <select
-                className="form-select mb-3 input-modal-styles rounded-0"
-                id="brandId"
-                name="brandId"
-                onChange={handleBrandId}
-              >
-                <option disabled>Choose a brand</option>
-                {brands.map((brand) => (
-                  <option key={brand.id} value={brand.id}>
-                    {brand.name}
-                  </option>
-                ))}
-              </select>
-              <label className="mb-1" htmlFor="model">
-                Model
-              </label>
-              <input
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="model"
-                name="model"
-                onChange={handleModel}
-              />
-              <label className="mb-1" htmlFor="images">
-                Images
-              </label>
-              <input
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="file"
-                id="images"
-                name="images"
-                onChange={handleModel}
-              />
-              <label className="mb-1" htmlFor="description">
-                Description
-              </label>
-              <input
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="description"
-                name="description"
-                onChange={handleDescription}
-              />
-              <label className="mb-1" htmlFor="featured">
-                Featured
-              </label>
-              <select
-                className="form-select mb-3 input-modal-styles rounded-0"
-                placeholder={car?.featured}
-                id="featured"
-                name="featured"
-                onChange={handleFeatured}
-              >
-                <option disabled>Choose an option</option>
-                <option value="0">False</option>
-                <option value="1">True</option>
-              </select>
-              <label className="mb-1" htmlFor="price">
-                Price
-              </label>
-              <input
-                onChange={handlePrice}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="price"
-                name="price"
-              />
-              <label className="mb-1" htmlFor="stock">
-                Stock
-              </label>
-              <input
-                onChange={handleStock}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="stock"
-                name="stock"
-              />
-              <label className="mb-1" htmlFor="year">
-                Year
-              </label>
-              <input
-                onChange={handleYear}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="year"
-                name="year"
-              />
-              <label className="mb-1" htmlFor="engine">
-                Engine
-              </label>
-              <input
-                onChange={handleEngine}
-                className="form-control mb-3 input-modal-styles rounded-0"
-                type="text"
-                id="engine"
-                name="engine"
-              />{" "}
-              <div className="d-flex justify-content-end">
-                <button
-                  type="button"
-                  onClick={hideModalCreate}
-                  className="button-no-modal saira-bold me-2"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  onClick={hideModalCreate}
-                  className="button-yes-modal saira-bold ms-2"
-                >
-                  Save changes
-                </button>
-              </div>
-            </form>
-          </Modal.Body>
-        </Modal>
+        <CreateProductModal
+          showModalCreate={showModalCreate}
+          hideModalCreate={hideModalCreate}
+          modalCreate={modalCreate}
+        />
       </>
     )
   );

@@ -12,12 +12,14 @@ function Admins() {
   const dispatch = useDispatch();
   const admins = useSelector((state) => state.admin);
   const token = useSelector((state) => state.token);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=> {
-    if (!token) return navigate("/login")
-       setTimeout(() => toast.info("You need to login to access the Admins´ section"), 800);
-  },[])
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      setTimeout(() => toast.info("You need to login to access the Admins´ section"), 800);
+    }
+  }, [token]);
 
   useEffect(() => {
     const getAdmins = async () => {
@@ -124,66 +126,74 @@ function Admins() {
   return (
     admins && (
       <>
-        <NavbarTop />
-        <div className="color-text-our-white background-night saira min-vh-100">
-          <div className="container py-5 ">
-            <div className="d-flex mb-4 align-items-center mb-4 mt-5">
-              {/* Buscador */}
-              <form className="d-flex w-75 rounded p-0">
-                <label hidden htmlFor="carSearcher">
-                  hey
-                </label>
-                <input
-                  className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start background-night"
-                  name="carSearcher"
-                  id="carSearcher"
-                />
-                <button className="button-search rounded-end w-25 fw-bold px-3 py-3">
-                  Search
-                  <i className="bi bi-search ms-2"></i>
-                </button>
-              </form>
-              {/* Boton + */}
-              <div className="ms-auto">
-                <i
-                  className="fs-1 color-text-gold bi bi-plus-circle cursor-pointer"
-                  onClick={showModalCreate}
-                ></i>
+        <div className="container-fluid m-0 p-0">
+          <div className="row m-0 p-0">
+            <div className="col-2 m-0 p-0 background-night-navbar vh-100">
+              <NavbarTop />
+            </div>
+            <div className="col-10 mb-4 pt-4 justify-content-center color-text-our-white saira">
+              <div className="container">
+                <div className="d-flex mb-4 align-items-center mb-4">
+                  {/* Buscador */}
+                  <form className="d-flex w-50 buscador p-0">
+                    <label hidden htmlFor="carSearcher">
+                      hey
+                    </label>
+                    <input
+                      className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
+                      name="carSearcher"
+                      id="carSearcher"
+                      placeholder="Look into the admins"
+                    />
+                    <button className="button-search rounded-end fw-bold px-3 m-0 h-100">
+                      <i className="bi bi-search"></i>
+                    </button>
+                  </form>
+                  {/* Boton + */}
+                </div>
+                <div className="d-flex">
+                  <h1 className="saira-expanded-more-bold mb-2">Admins</h1>
+                  <div className="ms-auto">
+                    <i
+                      className="fs-1 color-text-blizzardBlue bi bi-plus-circle cursor-pointer"
+                      onClick={showModalCreate}
+                    ></i>
+                  </div>
+                </div>
+                {/* Tabla */}
+                <Table striped bordered hover variant="light">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Firstname</th>
+                      <th>Lastname</th>
+                      <th>Email</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {admins?.map((admin) => (
+                      <tr key={admin?.id}>
+                        <td>{admin?.id}</td>
+                        <td>{admin?.firstname}</td>
+                        <td>{admin?.lastname}</td>
+                        <td>{admin?.email}</td>
+                        <td>
+                          <i
+                            onClick={() => showModalEdit(admin)}
+                            className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
+                          ></i>
+                          <i
+                            onClick={(event) => handleDelete(admin, event)}
+                            className="ms-2 bi bi-trash cursor-pointer text-primary"
+                          ></i>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
               </div>
             </div>
-            <h1 className="saira-expanded-more-bold mb-2">Admins</h1>
-            {/* Tabla */}
-            <Table striped bordered hover variant="dark">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Firstname</th>
-                  <th>Lastname</th>
-                  <th>Email</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {admins?.map((admin) => (
-                  <tr key={admin?.id}>
-                    <td>{admin?.id}</td>
-                    <td>{admin?.firstname}</td>
-                    <td>{admin?.lastname}</td>
-                    <td>{admin?.email}</td>
-                    <td>
-                      <i
-                        onClick={() => showModalEdit(admin)}
-                        className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
-                      ></i>
-                      <i
-                        onClick={(event) => handleDelete(admin, event)}
-                        className="ms-2 bi bi-trash cursor-pointer text-primary"
-                      ></i>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
           </div>
         </div>
         {/* modal edit */}

@@ -12,6 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../redux/configStore.js";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,5 @@ createRoot(document.getElementById("root")).render(
       progress={undefined}
       theme="dark"
     />
-    ,
   </>,
 );

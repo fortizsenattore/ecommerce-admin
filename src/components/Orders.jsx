@@ -15,9 +15,11 @@ function Orders() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) return navigate("/login");
-    setTimeout(() => toast.info("You need to login to access the Orders´ section"), 800);
-  }, []);
+    if (!token) {
+      navigate("/login");
+      setTimeout(() => toast.info("You need to login to access the Orders´ section"), 800);
+    }
+  }, [token]);
 
   const totalPurchase = (order) => {
     let sum = 0;
@@ -100,71 +102,78 @@ function Orders() {
   return (
     orders && (
       <>
-        <NavbarTop />
-        <div className="color-text-our-white background-night saira min-vh-100">
-          <div className="container py-5 min-vh-100">
-            <div className="d-flex mb-4 align-items-center mt-5">
-              {/* Buscador */}
-              <form className="d-flex w-75 rounded p-0">
-                <label hidden htmlFor="carSearcher">
-                  hey
-                </label>
-                <input
-                  className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start background-night"
-                  name="carSearcher"
-                  id="carSearcher"
-                />
-                <button className="button-search rounded-end fw-bold px-3 py-3 w-25 m-0 h-100">
-                  Search
-                  <i className="bi bi-search ms-2"></i>
-                </button>
-              </form>
+        <div className="container-fluid m-0 p-0">
+          <div className="row m-0 p-0">
+            <div className="col-2 m-0 p-0 background-night-navbar vh-100">
+              <NavbarTop />
             </div>
-            <h1 className="saira-expanded-more-bold mb-2">Orders</h1>
-            {/* Tabla */}
-            <Table striped bordered hover responsive variant="dark">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th>Address</th>
-                  <th>List</th>
-                  <th>Total</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders?.map((order) => (
-                  <tr key={order?.id}>
-                    <td>{order?.id}</td>
-                    <td>
-                      {order?.user?.firstname} {order?.user?.lastname}
-                    </td>
-                    <td>{order?.status}</td>
-                    <td>{order?.address}</td>
-                    <td>
-                      {order?.productList?.map((car) => (
-                        <li key={car?.nanoId}>
-                          {car?.brand?.name} {car?.model} - {car?.qty} units
-                        </li>
-                      ))}
-                    </td>
-                    <td>${formatNumber(totalPurchase(order), 0)} </td>
-                    <td>
-                      <i
-                        onClick={() => showModalEdit(order)}
-                        className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
-                      ></i>
-                      <i
-                        onClick={(event) => handleDelete(order, event)}
-                        // className="ms-2 bi bi-trash cursor-pointer text-primary"
-                      ></i>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <div className="col-10 mb-4 pt-4 justify-content-center color-text-our-white saira">
+              <div className="container">
+                <div className="d-flex mb-4 align-items-center">
+                  {/* Buscador */}
+                  <form className="d-flex w-50 buscador rounded p-0">
+                    <label hidden htmlFor="carSearcher">
+                      hey
+                    </label>
+                    <input
+                      className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
+                      name="carSearcher"
+                      id="carSearcher"
+                      placeholder="Look into the orders"
+                    />
+                    <button className="button-search rounded-end fw-bold px-3 m-0 h-100">
+                      <i className="bi bi-search"></i>
+                    </button>
+                  </form>
+                </div>
+                <h1 className="saira-expanded-more-bold mb-2">Orders</h1>
+
+                {/* Tabla */}
+                <Table striped bordered hover responsive variant="light">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>User</th>
+                      <th>Status</th>
+                      <th>Address</th>
+                      <th>List</th>
+                      <th>Total</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders?.map((order) => (
+                      <tr key={order?.id}>
+                        <td>{order?.id}</td>
+                        <td>
+                          {order?.user?.firstname} {order?.user?.lastname}
+                        </td>
+                        <td>{order?.status}</td>
+                        <td>{order?.address}</td>
+                        <td>
+                          {order?.productList?.map((car) => (
+                            <li key={car?.nanoId}>
+                              {car?.brand?.name} {car?.model} - {car?.qty} units
+                            </li>
+                          ))}
+                        </td>
+                        <td>${formatNumber(totalPurchase(order), 0)} </td>
+                        <td>
+                          <i
+                            onClick={() => showModalEdit(order)}
+                            className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
+                          ></i>
+                          <i
+                            onClick={(event) => handleDelete(order, event)}
+                            // className="ms-2 bi bi-trash cursor-pointer text-primary"
+                          ></i>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+            </div>
           </div>
         </div>
 
