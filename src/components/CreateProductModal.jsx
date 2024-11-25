@@ -1,7 +1,6 @@
 import Modal from "react-bootstrap/Modal";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { editProduct } from "../../redux/productSlice";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 function CreateProductModal({ modalCreate, hideModalCreate, showModalCreate }) {
