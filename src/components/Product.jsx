@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editProduct } from "../../redux/productSlice";
+import { editProduct, deleteProduct } from "../../redux/productSlice";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 
@@ -55,6 +55,16 @@ function Product({ car }) {
       return array.join("") + "," + decimalPart;
     }
     return array.join("");
+  };
+
+  const handleDelete = async (car, event) => {
+    event.preventDefault();
+    const call = await axios({
+      method: "DELETE",
+      url: `${import.meta.env.VITE_API_URL}/products/${car.id}`,
+      headers: { authorization: `Bearer ${token}` },
+    });
+    dispatch(deleteProduct(car.id));
   };
 
   const hideModalEdit = () => {

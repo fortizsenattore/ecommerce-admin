@@ -5,9 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Product from "./Product";
 import {
   getAllProducts,
-  deleteProduct,
-  editProduct,
-  createProduct,
 } from "../../redux/productSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
@@ -48,16 +45,6 @@ function Products() {
 
   const showModalCreate = () => {
     setModalCreate(true);
-  };
-
-  const handleDelete = async (car, event) => {
-    event.preventDefault();
-    const call = await axios({
-      method: "DELETE",
-      url: `${import.meta.env.VITE_API_URL}/products/${car.id}`,
-      headers: { authorization: `Bearer ${token}` },
-    });
-    dispatch(deleteProduct(car.id));
   };
 
   return (
