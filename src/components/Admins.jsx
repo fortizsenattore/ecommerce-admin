@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllAdmins, deleteAdmin, editAdmin, createAdmin } from "../../redux/AdminSlice";
+import { getAllAdmins, deleteAdmin, editAdmin, createAdmin } from "../../redux/adminSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
