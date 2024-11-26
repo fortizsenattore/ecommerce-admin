@@ -3,7 +3,7 @@ import NavbarTop from "./NavbarTop";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { getAllBrands } from "../../redux/BrandSlice";
+import { getAllBrands } from "../../redux/brandSlice";
 import axios from "axios";
 
 function Home() {
