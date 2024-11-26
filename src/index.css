@@ -13,7 +13,7 @@
 }
 
 body {
-  background-image: url("/wallpaper-admin.png");
+  background-image: url("../public/wallpaper-admin.png");
   overflow: hidden;
 }
 
