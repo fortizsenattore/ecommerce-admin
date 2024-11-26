@@ -13,7 +13,7 @@
 }
 
 body {
-  background-image: url("wallpaper-admin.png");
+  background-image: url("/wallpaper-admin.png");
   overflow: hidden;
 }
 
@@ -256,15 +256,15 @@ body {
 }
 
 .background-2-home {
-  background-color: #ACECA1;
+  background-color: #aceca1;
 }
 
 .background-3-home {
-  background-color: #96BE8C;
+  background-color: #96be8c;
 }
 
 .background-4-home {
-  background-color: #629460
+  background-color: #629460;
 }
 .navbar-styles {
   width: 100%;
