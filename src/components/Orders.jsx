@@ -110,7 +110,7 @@ function Orders() {
             <div className="col-10 mb-4 pt-4 justify-content-center color-text-our-white saira">
               {orders.length < 1 ? (
                 <div className="container">
-                  <p className="fs-5 text-start">
+                  <p className="fs-5 text-start fw-medium">
                     The order list will be displayed when our beloved costumers begin to purchase
                     cars.
                   </p>

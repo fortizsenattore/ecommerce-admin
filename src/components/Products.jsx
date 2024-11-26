@@ -68,7 +68,7 @@ function Products() {
                       className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
                       name="carSearcher"
                       id="carSearcher"
-                      placeholder="Search your product"
+                      placeholder="Look into the products"
                     />
                     <button className="button-search rounded-end fw-bold px-3 m-0 h-100">
                       <i className="bi bi-search"></i>

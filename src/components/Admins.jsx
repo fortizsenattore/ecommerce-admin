@@ -95,7 +95,6 @@ function Admins() {
       data: { firstname, lastname, email },
       headers: { authorization: `Bearer ${token}` },
     });
-    console.log(call.data);
     dispatch(editAdmin(call.data));
     setModalEdit(false);
   };
@@ -108,7 +107,6 @@ function Admins() {
       data: { firstname, lastname, email, password },
       headers: { authorization: `Bearer ${token}` },
     });
-    console.log(call.data);
     dispatch(createAdmin(call.data));
     setModalCreate(false);
   };
@@ -118,6 +116,7 @@ function Admins() {
     const call = await axios({
       method: "DELETE",
       url: `${import.meta.env.VITE_API_URL}/admins/${admin?.id}`,
+      headers: { authorization: `Bearer ${token}` },
     });
 
     dispatch(deleteAdmin(admin.id));
@@ -247,7 +246,7 @@ function Admins() {
                 type="text"
                 id="Name"
                 name="Name"
-                placeholder={admin?.password}
+                placeholder="*****"
                 onChange={handlePassword}
               />
               <div className="d-flex justify-content-end">
