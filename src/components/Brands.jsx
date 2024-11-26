@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBrand, editBrand, createBrand } from "../../redux/BrandSlice";
+import { deleteBrand, editBrand, createBrand } from "../../redux/brandSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
