@@ -1,18 +1,15 @@
 import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { NavLink, Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useState } from "react";
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Offcanvas from "react-bootstrap/Offcanvas";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/tokenSlice";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 
 function NavbarTop() {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
 
@@ -27,6 +24,7 @@ function NavbarTop() {
   const goodbye = () => {
     dispatch(logout(""));
     setModal(false);
+    setTimeout(toast.success("Logout successful"), 800);
   };
 
   return (

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
