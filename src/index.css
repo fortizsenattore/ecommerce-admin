@@ -1,5 +1,4 @@
 :root {
-
   --offWhite: rgb(250, 242, 233);
   --night: #0c090d;
   --nightTransparency: rgba(12, 9, 13, 0.875);
@@ -13,14 +12,15 @@
 
 body {
   /*  background-image: url("../public/wallpaper-admin.png"); */
-  background: rgb(48, 129, 225);
-  background: linear-gradient(
+  overflow: hidden;
+  background-color: #393e41;
+  background-color: #636b61;
+  /* background: linear-gradient(
     98deg,
     rgba(48, 129, 225, 0.95) 21%,
     rgba(65, 58, 203, 0.95) 50%,
     rgba(32, 29, 253, 0.95) 77%
-  );
-  overflow: hidden;
+  ); */
 }
 
 .saira {
@@ -112,7 +112,7 @@ body {
   color: var(--offWhite);
   font-weight: 600;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 19px;
   width: 100%;
   display: flex;
 }
@@ -120,9 +120,13 @@ body {
 .link-inactive {
   color: var(--offWhite);
   text-decoration: none;
-  font-size: 20px;
+  font-size: 19px;
   width: 100%;
   display: flex;
+}
+
+.link-inactive:hover {
+  background-color: grey;
 }
 
 .form-control:focus {
@@ -241,7 +245,7 @@ body {
 }
 
 .background-night-navbar {
-  background-color: rgba(12, 9, 13, 0.9);
+  background-color: var(--night);
 }
 
 .button-login {
@@ -277,10 +281,43 @@ body {
   height: 100%;
 }
 
+.title-error-page {
+  font-size: 80px;
+}
+
+.button-error-page {
+  border: 2px solid var(--blizzardBlue) !important;
+  width: 167px;
+  text-decoration: none;
+  color: var(--offWhite);
+  transition: all 0.4s ease-in-out;
+  font-weight: 500;
+}
+
+.button-error-page:hover {
+  border: 2px solid var(--night) !important;
+  background-color: var(--night);
+  color: var(--offWhite);
+}
+
 .scroll-table {
   overflow: scroll;
   max-height: 76vh;
   scroll-behavior: smooth;
+}
+
+.subtitle-home-styles {
+  font-size: 20px;
+}
+
+@media (max-width: 1200px) {
+  .navbar-styles {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .subtitle-home-styles {
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -303,6 +340,9 @@ body {
   .img-login-styles {
     width: 100vw;
   }
+  .button-error-page {
+    width: 159px;
+  }
 }
 
 @media (max-width: 800px) {
@@ -321,6 +361,15 @@ body {
     right: 20%;
     border-radius: 10px;
     background: var(--nightTransparency) !important;
+  }
+  .subtitle-home-styles {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 768px) {
+  .img-graph-styles {
+    max-height: 250px;
   }
 }
 
@@ -359,5 +408,17 @@ body {
     right: 0;
     border-radius: 0px !important;
     background-color: var(--night) !important;
+  }
+  .button-error-page {
+    width: 154px;
+  }
+  .subtitle-home-styles {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 450px) {
+  .button-error-page {
+    width: 149px;
   }
 }

@@ -34,41 +34,41 @@ function Home() {
     <>
       <div className="container-fluid m-0 p-0 vh-100">
         <div className="row m-0 p-0">
-          <div className="col-2 m-0 p-0 background-night-navbar vh-100">
+          <div className="col-4 col-sm-3 col-lg-2 m-0 p-0 background-night-navbar vh-100">
             <NavbarTop />
           </div>
-          <div className="col-10 d-flex pt-4 mb-4 justify-content-center color-text-night saira">
+          <div className="col-8 col-sm-9 col-lg-10 d-flex pt-4 mb-4 justify-content-center color-text-night saira">
             <div className="container">
               {/* first 4 rectangles */}
-              <div className="row mb-4 ">
-                <div className="col-3">
+              <div className="row g-4 mb-4 ">
+                <div className="col-6 col-lg-3">
                   <div className="background-1-home p-3 h-100">
                     <p className="saira-expanded-bold">Current MRR</p>
-                    <p className="fs-5 saira-expanded-more-bold">$17.080.000.000</p>
+                    <p className="subtitle-home-styles m-0 saira-expanded-more-bold">$79.680.000</p>
                   </div>
                 </div>
-                <div className="col-3">
+                <div className="col-6 col-lg-3">
                   <div className="background-2-home p-3 h-100">
                     <p className="saira-expanded-bold">Current Costumers</p>
-                    <p className="fs-5 saira-expanded-more-bold">5.320</p>
+                    <p className="subtitle-home-styles m-0 saira-expanded-more-bold">5.320</p>
                   </div>
                 </div>
-                <div className="col-3">
+                <div className="col-6 col-lg-3">
                   <div className="background-3-home p-3 h-100">
                     <p className="saira-expanded-bold">Active Costumers</p>
-                    <p className="fs-5 saira-expanded-more-bold">41%</p>
+                    <p className="subtitle-home-styles m-0 saira-expanded-more-bold">41%</p>
                   </div>
                 </div>
-                <div className="col-3">
+                <div className="col-6 col-lg-3">
                   <div className="background-4-home p-3 h-100">
                     <p className="saira-expanded-bold">Satisfaction Rate</p>
-                    <p className="fs-5 saira-expanded-more-bold">98.7%</p>
+                    <p className="subtitle-home-styles m-0 saira-expanded-more-bold">98.7%</p>
                   </div>
                 </div>
               </div>
               {/* 2 middle-row */}
               <div className="row">
-                <div className="col-7">
+                <div className="col-md-7">
                   <div className="background-night-transparency p-3 h-100">
                     <p className="saira-expanded-more-bold text-center color-text-our-white">
                       Market trend
@@ -83,13 +83,17 @@ function Home() {
                   </div>
                 </div>
 
-                <div className="col-5">
+                <div className="col-sm-5 d-none d-md-block">
                   <div className="background-night-transparency p-3 h-100">
                     <p className="saira-expanded-more-bold text-center mb-4 color-text-our-white">
                       Sales
                     </p>
                     <div className="d-flex justify-content-center">
-                      <img className="img-fluid" src="chart.png" alt="Graph image" />
+                      <img
+                        className="img-fluid img-graph-styles"
+                        src="chart.png"
+                        alt="Graph image"
+                      />
                     </div>
                   </div>
                 </div>

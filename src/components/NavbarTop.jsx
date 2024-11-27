@@ -29,63 +29,61 @@ function NavbarTop() {
 
   return (
     <>
-      <Nav className=" p-0 saira color-text-our-white navbar-styles p-4 justify-content-between d-flex">
+      <Nav className="p-0 saira color-text-our-white navbar-styles p-4 d-flex">
         <div className="w-100">
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-3" : "link-inactive m-0 pb-3"
+              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
             }
             to="/"
           >
-            Home
-            <i className="ms-auto bi bi-chevron-right"></i>
+            <i className="bi bi-house-gear-fill me-3"></i>
+            <span className="m-0">Home</span>
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-3" : "link-inactive m-0 pb-3"
+              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
             }
             to="/products"
           >
-            Products
-            <i className="ms-auto bi bi-chevron-right"></i>
+            <i className="bi bi-car-front-fill me-3"></i>
+            <span className="m-0"> Products</span>
           </NavLink>
 
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-3" : "link-inactive m-0 pb-3"
+              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
             }
             to="/brands"
           >
-            Brands
-            <i className="ms-auto bi bi-chevron-right"></i>
+            <i className="bi bi-shield-fill-check me-3 m-0"></i>
+            <span className="m-0">Brands</span>
           </NavLink>
 
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-3" : "link-inactive m-0 pb-3"
+              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
             }
             to="/orders"
           >
-            Orders
-            <i className="ms-auto bi bi-chevron-right"></i>
+            <i className="bi bi-box-seam-fill me-3 m-0"></i>
+            <span className="m-0">Orders</span>
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-3" : "link-inactive m-0 pb-3"
+              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
             }
             to="/admins"
           >
-            Admins
-            <i className="ms-auto bi bi-chevron-right"></i>
+            <i className="bi bi-person-circle me-3"></i>
+            <span className="m-0">Admins</span>
           </NavLink>
         </div>
 
         <div className="w-100 d-flex align-items-center">
           <NavLink onClick={showModal} className="link-inactive mt-auto d-flex align-items-center">
-            <button className="link-inactive button-logout justify-content-between d-flex px-2">
-              <p className="m-0">Logout </p>
-              <i className="bi bi-box-arrow-right"></i>
-            </button>
+            <i className="me-3 bi bi-box-arrow-right"></i>
+            <p className="m-0">Logout </p>
           </NavLink>
         </div>
       </Nav>
