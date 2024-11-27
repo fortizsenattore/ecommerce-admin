@@ -1,12 +1,13 @@
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { createProduct } from "../../redux/productSlice";
 
 function CreateProductModal({ modalCreate, hideModalCreate, showModalCreate }) {
   const brands = useSelector((state) => state.brand);
   const token = useSelector((state) => state.token);
+  const dispatch = useDispatch();
 
   const [brandId, setBrandId] = useState("");
   const [description, setDescription] = useState("");
