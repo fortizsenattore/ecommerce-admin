@@ -1,6 +1,6 @@
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
 import Container from "react-bootstrap/Container";
@@ -12,6 +12,7 @@ import Modal from "react-bootstrap/Modal";
 function NavbarTop() {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
 
@@ -100,7 +101,7 @@ function NavbarTop() {
           <p className="m-0 saira-expanded-bold">Are you sure you want to log out?</p>
           <hr />
           <div className="d-flex justify-content-end">
-            <Link onClick={goodbye} to="/">
+            <Link onClick={() => goodbye()} to="/login">
               <button className="button-yes-modal saira-bold ms-2">Yes, I want to logout</button>
             </Link>
           </div>
