@@ -45,7 +45,7 @@ function Login() {
         />
         <div className="position-absolute px-5 div-login-styles shadow">
           <div className="d-flex flex-column align-items-center justify-content-center h-100">
-            <h2 className="text-center fw-bold pb-3">Welcome Sir</h2>
+            <h2 className="text-center fw-bold pb-3">Welcome</h2>
             <form onSubmit={createToken} method="POST" className="form-styles">
               <label className="mb-2" htmlFor="email">
                 Login with your admin credentials:
