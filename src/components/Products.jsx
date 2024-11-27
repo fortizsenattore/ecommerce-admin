@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "./Product";
-import {
-  getAllProducts,
-} from "../../redux/productSlice";
+import { getAllProducts } from "../../redux/productSlice";
 import NavbarTop from "./NavbarTop";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -38,6 +36,7 @@ function Products() {
   }, []);
 
   const [modalCreate, setModalCreate] = useState(false);
+  const [buscador, setBuscador] = useState("");
 
   const hideModalCreate = () => {
     setModalCreate(false);
@@ -45,6 +44,10 @@ function Products() {
 
   const showModalCreate = () => {
     setModalCreate(true);
+  };
+
+  const readBuscador = (e) => {
+    setBuscador(e.target.value);
   };
 
   return (
@@ -65,6 +68,8 @@ function Products() {
                       hey
                     </label>
                     <input
+                      value={buscador}
+                      onChange={readBuscador}
                       className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
                       name="carSearcher"
                       id="carSearcher"
@@ -98,9 +103,15 @@ function Products() {
                       </tr>
                     </thead>
                     <tbody>
-                      {products?.map((car) => (
-                        <Product key={car.id} car={car} />
-                      ))}
+                      {products
+                        ?.filter(
+                          (car) =>
+                            car?.model?.toLowerCase().includes(buscador.toLowerCase()) |
+                            car?.brand?.name?.toLowerCase().includes(buscador.toLowerCase()),
+                        )
+                        ?.map((car) => (
+                          <Product key={car.id} car={car} />
+                        ))}
                     </tbody>
                   </Table>
                 </div>

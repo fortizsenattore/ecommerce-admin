@@ -25,6 +25,7 @@ function Brands() {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);
   const [brand, setBrand] = useState(null);
+  const [buscador, setBuscador] = useState("");
 
   const [name, setName] = useState(brand?.name);
 
@@ -112,6 +113,8 @@ function Brands() {
                       hey
                     </label>
                     <input
+                      value={buscador}
+                      onChange={(e) => setBuscador(e.target.value)}
                       className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
                       name="carSearcher"
                       id="carSearcher"
@@ -123,6 +126,7 @@ function Brands() {
                   </form>
                   {/* Boton + */}
                 </div>
+
                 <div className="d-flex">
                   <h1 className="saira-expanded-more-bold mb-2">Brands</h1>
                   <div className="ms-auto">
@@ -142,22 +146,24 @@ function Brands() {
                     </tr>
                   </thead>
                   <tbody>
-                    {brands?.map((brand) => (
-                      <tr key={brand.id}>
-                        <td>{brand?.id}</td>
-                        <td>{brand?.name}</td>
-                        <td>
-                          <i
-                            onClick={() => showModalEdit(brand)}
-                            className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
-                          ></i>
-                          <i
-                            onClick={(event) => handleDelete(brand, event)}
-                            className="ms-2 bi bi-trash cursor-pointer text-primary"
-                          ></i>
-                        </td>
-                      </tr>
-                    ))}
+                    {brands
+                      ?.filter((brand) => brand?.name?.toLowerCase().includes(buscador.toLowerCase()))
+                      ?.map((brand) => (
+                        <tr key={brand.id}>
+                          <td>{brand?.id}</td>
+                          <td>{brand?.name}</td>
+                          <td>
+                            <i
+                              onClick={() => showModalEdit(brand)}
+                              className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
+                            ></i>
+                            <i
+                              onClick={(event) => handleDelete(brand, event)}
+                              className="ms-2 bi bi-trash cursor-pointer text-primary"
+                            ></i>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </Table>
               </div>

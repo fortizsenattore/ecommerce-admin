@@ -43,6 +43,7 @@ function Orders() {
 
   const [modalEdit, setModalEdit] = useState(false);
   const [order, setOrder] = useState(null);
+  const [buscador, setBuscador] = useState("");
 
   const [status, setStatus] = useState(order?.status);
   const [address, setAddress] = useState(order?.address);
@@ -108,11 +109,10 @@ function Orders() {
               <NavbarTop />
             </div>
             <div className="col-10 mb-4 pt-4 justify-content-center color-text-our-white saira">
-              {orders.length < 1 ? (
+              {orders.length === 0 ? (
                 <div className="container">
                   <p className="fs-5 text-start fw-medium">
-                    The order list will be displayed when our beloved costumers begin to purchase
-                    cars.
+                    Orders will be displayed when our costumers start to purchase.
                   </p>
                 </div>
               ) : (
@@ -124,6 +124,8 @@ function Orders() {
                         hey
                       </label>
                       <input
+                        value={buscador}
+                        onChange={(e) => setBuscador(e.target.value)}
                         className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
                         name="carSearcher"
                         id="carSearcher"
@@ -150,34 +152,42 @@ function Orders() {
                       </tr>
                     </thead>
                     <tbody>
-                      {orders?.map((order) => (
-                        <tr key={order?.id}>
-                          <td>{order?.id}</td>
-                          <td>
-                            {order?.user?.firstname} {order?.user?.lastname}
-                          </td>
-                          <td>{order?.status}</td>
-                          <td>{order?.address}</td>
-                          <td>
-                            {order?.productList?.map((car) => (
-                              <li key={car?.nanoId}>
-                                {car?.brand?.name} {car?.model} - {car?.qty} units
-                              </li>
-                            ))}
-                          </td>
-                          <td>${formatNumber(totalPurchase(order), 0)} </td>
-                          <td>
-                            <i
-                              onClick={() => showModalEdit(order)}
-                              className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
-                            ></i>
-                            <i
-                              onClick={(event) => handleDelete(order, event)}
-                              // className="ms-2 bi bi-trash cursor-pointer text-primary"
-                            ></i>
-                          </td>
-                        </tr>
-                      ))}
+                      {orders
+                        ?.filter(
+                          (order) =>
+                            order?.user?.firstname?.toLowerCase().includes(buscador.toLowerCase()) |
+                            order?.user?.lastname?.toLowerCase().includes(buscador.toLowerCase()) |
+                            order?.status?.toLowerCase().includes(buscador.toLowerCase()) |
+                            order?.address?.toLowerCase().includes(buscador.toLowerCase()),
+                        )
+                        ?.map((order) => (
+                          <tr key={order?.id}>
+                            <td>{order?.id}</td>
+                            <td>
+                              {order?.user?.firstname} {order?.user?.lastname}
+                            </td>
+                            <td>{order?.status}</td>
+                            <td>{order?.address}</td>
+                            <td>
+                              {order?.productList?.map((car) => (
+                                <li key={car?.nanoId}>
+                                  {car?.brand?.name} {car?.model} - {car?.qty} units
+                                </li>
+                              ))}
+                            </td>
+                            <td>${formatNumber(totalPurchase(order), 0)} </td>
+                            <td>
+                              <i
+                                onClick={() => showModalEdit(order)}
+                                className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
+                              ></i>
+                              <i
+                                onClick={(event) => handleDelete(order, event)}
+                                // className="ms-2 bi bi-trash cursor-pointer text-primary"
+                              ></i>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </Table>
                 </div>

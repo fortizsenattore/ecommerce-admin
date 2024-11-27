@@ -13,7 +13,14 @@
 }
 
 body {
-  background-image: url("../public/wallpaper-admin.png");
+  /*  background-image: url("../public/wallpaper-admin.png"); */
+  background: rgb(48, 129, 225);
+  background: linear-gradient(
+    98deg,
+    rgba(48, 129, 225, 0.95) 21%,
+    rgba(65, 58, 203, 0.95) 50%,
+    rgba(32, 29, 253, 0.95) 77%
+  );
   overflow: hidden;
 }
 

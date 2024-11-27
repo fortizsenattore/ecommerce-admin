@@ -28,7 +28,6 @@ function Admins() {
         url: `${import.meta.env.VITE_API_URL}/admins`,
         headers: { authorization: `Bearer ${token}` },
       });
-      console.log(response.data);
       dispatch(getAllAdmins(response.data));
     };
     getAdmins();
@@ -37,6 +36,7 @@ function Admins() {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);
   const [admin, setAdmin] = useState(null);
+  const [buscador, setBuscador] = useState("");
 
   const [firstname, setFirstname] = useState(admin?.firstname);
   const [lastname, setLastname] = useState(admin?.lastname);
@@ -139,6 +139,8 @@ function Admins() {
                       hey
                     </label>
                     <input
+                      value={buscador}
+                      onChange={(e) => setBuscador(e.target.value)}
                       className="form-control buscador-styles color-text-our-white border-0 rounded-0 rounded-start"
                       name="carSearcher"
                       id="carSearcher"
@@ -171,24 +173,31 @@ function Admins() {
                     </tr>
                   </thead>
                   <tbody>
-                    {admins?.map((admin) => (
-                      <tr key={admin?.id}>
-                        <td>{admin?.id}</td>
-                        <td>{admin?.firstname}</td>
-                        <td>{admin?.lastname}</td>
-                        <td>{admin?.email}</td>
-                        <td>
-                          <i
-                            onClick={() => showModalEdit(admin)}
-                            className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
-                          ></i>
-                          <i
-                            onClick={(event) => handleDelete(admin, event)}
-                            className="ms-2 bi bi-trash cursor-pointer text-primary"
-                          ></i>
-                        </td>
-                      </tr>
-                    ))}
+                    {admins
+                      ?.filter(
+                        (admin) =>
+                          admin?.firstname?.toLowerCase().includes(buscador.toLowerCase()) |
+                          admin?.lastname?.toLowerCase().includes(buscador.toLowerCase()) |
+                          admin?.email?.toLowerCase().includes(buscador.toLowerCase()),
+                      )
+                      ?.map((admin) => (
+                        <tr key={admin?.id}>
+                          <td>{admin?.id}</td>
+                          <td>{admin?.firstname}</td>
+                          <td>{admin?.lastname}</td>
+                          <td>{admin?.email}</td>
+                          <td>
+                            <i
+                              onClick={() => showModalEdit(admin)}
+                              className="bi bi-pencil-fill me-2 color-text-gold cursor-pointer"
+                            ></i>
+                            <i
+                              onClick={(event) => handleDelete(admin, event)}
+                              className="ms-2 bi bi-trash cursor-pointer text-primary"
+                            ></i>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </Table>
               </div>
