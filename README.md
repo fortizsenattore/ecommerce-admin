@@ -1,8 +1,20 @@
-# React + Vite
+# E-commerce Admin Repository
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+This repository is part of the final project for the Hack Academy intensive course. The project was developed in collaboration with Ioel Katz and María Clara Puñales over approximately three weeks.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+The project consists of an e-commerce platform, including:  
+
+A user-facing frontend: https://crownmotors.vercel.app
+
+An admin panel: https://crownmotors-admin.vercel.app/login
+
+A backend API to support the application.
+
+
+We worked together on all three repositories. You can find the others here:
+
+User Frontend Repository: https://github.com/ioelkatz/ecommerce-user
+
+Backend Repository: https://github.com/clearlyc/ecommerce-backend
