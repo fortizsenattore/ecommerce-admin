@@ -52,7 +52,7 @@ function Login() {
               <input
                 value={email}
                 onChange={handleEmail}
-                placeholder="Email..."
+                placeholder="admin@admin.com"
                 className="input-login-styles form-control mb-3 rounded-0"
                 type="email"
                 name="email"
@@ -64,7 +64,7 @@ function Login() {
               <input
                 value={password}
                 onChange={handlePassword}
-                placeholder="Password..."
+                placeholder="123"
                 className="input-login-styles form-control mb-4 rounded-0"
                 type="password"
                 name="password"

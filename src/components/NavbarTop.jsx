@@ -33,7 +33,7 @@ function NavbarTop() {
         <div className="w-100">
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
+              isActive ? "link-active m-0 p-0 mb-4 ps-1" : "link-inactive m-0 p-0 mb-4 ps-1"
             }
             to="/"
           >
@@ -42,7 +42,7 @@ function NavbarTop() {
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
+              isActive ? "link-active  m-0 p-0 mb-4 ps-1" : "link-inactive  m-0 p-0 mb-4 ps-1"
             }
             to="/products"
           >
@@ -52,7 +52,7 @@ function NavbarTop() {
 
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
+              isActive ? "link-active  m-0 p-0 mb-4 ps-1" : "link-inactive  m-0 p-0 mb-4 ps-1"
             }
             to="/brands"
           >
@@ -62,7 +62,7 @@ function NavbarTop() {
 
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
+              isActive ? "link-active  m-0 p-0 mb-4 ps-1" : "link-inactive  m-0 p-0 mb-4 ps-1"
             }
             to="/orders"
           >
@@ -71,7 +71,7 @@ function NavbarTop() {
           </NavLink>
           <NavLink
             className={({ isActive }) =>
-              isActive ? "link-active m-0 pb-4" : "link-inactive m-0 pb-4"
+              isActive ? "link-active  m-0 p-0 mb-4 ps-1" : "link-inactive  m-0 p-0 mb-4 ps-1"
             }
             to="/admins"
           >
@@ -81,7 +81,7 @@ function NavbarTop() {
         </div>
 
         <div className="w-100 d-flex align-items-center">
-          <NavLink onClick={showModal} className="link-inactive mt-auto d-flex align-items-center">
+          <NavLink onClick={showModal} className="link-inactive mt-auto d-flex align-items-center ps-1">
             <i className="me-3 bi bi-box-arrow-right"></i>
             <p className="m-0">Logout </p>
           </NavLink>
