@@ -59,7 +59,7 @@ function Login() {
                 id="email"
               />
               <label className=" mb-2" htmlFor="password">
-                Password
+                Password:
               </label>
               <input
                 value={password}
