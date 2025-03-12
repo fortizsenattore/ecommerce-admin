@@ -11,16 +11,12 @@
 }
 
 body {
-  /*  background-image: url("../public/wallpaper-admin.png"); */
-  overflow: hidden;
-  background-color: #393e41;
-  background-color: #636b61;
-  /* background: linear-gradient(
-    98deg,
-    rgba(48, 129, 225, 0.95) 21%,
-    rgba(65, 58, 203, 0.95) 50%,
-    rgba(32, 29, 253, 0.95) 77%
-  ); */
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: "Saira", sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .saira {
@@ -106,6 +102,197 @@ body {
 
 .background-night-transparency {
   background-color: rgba(12, 9, 13, 0.8);
+}
+
+.dashboard-container {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar-container {
+  width: 16.666667%;
+  min-width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--night);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.background-night-navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1rem 0;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: #e0e0e0;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.nav-item svg {
+  margin-right: 0.75rem;
+}
+.logout-section {
+  margin-top: auto;
+  padding: 1rem 1.5rem;
+}
+.main-content {
+  flex: 1;
+  margin-left: 16.666667%;
+  min-width: 0;
+  background-color: #1a1a1a;
+  min-height: 100vh;
+}
+.card {
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+.icon-box {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.table th {
+  border-bottom: 1px solid #2c2c2c;
+  font-weight: 600;
+  color: #8a8a8a;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  padding: 1rem;
+}
+
+.table td {
+  border-bottom: 1px solid #2c2c2c;
+  vertical-align: middle;
+  padding: 1rem;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.badge {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.chart-container {
+  position: relative;
+  margin: auto;
+}
+.dropdown-menu {
+  border-radius: 8px;
+  border: 1px solid #2c2c2c;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.metric-card {
+  background-color: rgba(33, 33, 33, 0.75);
+  border: none;
+}
+
+.metric-title {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.metric-value {
+  font-size: 1.75rem;
+  margin: 0.5rem 0;
+}
+
+.metric-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-completed {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+}
+
+.status-processing {
+  background-color: rgba(33, 150, 243, 0.15);
+  color: #2196f3;
+}
+
+.status-pending {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #ff9800;
+}
+.refresh-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.refresh-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.refresh-button:active {
+  transform: scale(0.98);
 }
 
 .link-active {
@@ -318,6 +505,12 @@ body {
   .subtitle-home-styles {
     font-size: 18px;
   }
+  .sidebar-container {
+    width: 200px;
+  }
+  .main-content {
+    margin-left: 200px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -370,6 +563,15 @@ body {
 @media (max-width: 768px) {
   .img-graph-styles {
     max-height: 250px;
+  }
+  .sidebar-container {
+    width: 160px;
+  }
+  .main-content {
+    margin-left: 160px;
+  }
+  .nav-item {
+    padding: 0.75rem 1rem;
   }
 }
 
