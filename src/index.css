@@ -116,7 +116,7 @@ body {
 
 .sidebar-container {
   width: 16.666667%;
-  min-width: 250px;
+  min-width: 150px;
   position: fixed;
   top: 0;
   left: 0;
@@ -466,6 +466,7 @@ body {
 .navbar-styles {
   width: 100%;
   height: 100%;
+  min-width: 150px !important;
 }
 
 .title-error-page {
@@ -501,6 +502,7 @@ body {
   .navbar-styles {
     width: 100% !important;
     height: 100% !important;
+    min-width: 150px;
   }
   .subtitle-home-styles {
     font-size: 18px;

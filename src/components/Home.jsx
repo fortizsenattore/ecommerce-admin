@@ -1,11 +1,20 @@
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-import axios from "axios"
-import { getAllBrands } from "../../redux/brandSlice"
-import { ArrowUp, ArrowDown, Users, DollarSign, ShoppingBag, Percent, Calendar, Activity } from "lucide-react"
-import NavbarTop from "./NavbarTop"
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { getAllBrands } from "../../redux/brandSlice";
+import {
+  ArrowUp,
+  ArrowDown,
+  Users,
+  DollarSign,
+  ShoppingBag,
+  Percent,
+  Calendar,
+  Activity,
+} from "lucide-react";
+import NavbarTop from "./NavbarTop";
 
 // Sample data for charts
 const marketTrendData = [
@@ -21,7 +30,7 @@ const marketTrendData = [
   { month: "Oct", value: 28000 },
   { month: "Nov", value: 32000 },
   { month: "Dec", value: 38000 },
-]
+];
 
 const salesData = [
   { brand: "Ferrari", percentage: 30.5 },
@@ -29,19 +38,43 @@ const salesData = [
   { brand: "McLaren", percentage: 13 },
   { brand: "Audi", percentage: 8.7 },
   { brand: "Lamborghini", percentage: 26.1 },
-]
+];
 
 const recentOrders = [
-  { id: "#ORD-7892", customer: "John Smith", date: "2023-05-12", amount: 128500, status: "Completed" },
-  { id: "#ORD-7893", customer: "Emma Johnson", date: "2023-05-11", amount: 95700, status: "Processing" },
-  { id: "#ORD-7894", customer: "Michael Brown", date: "2023-05-10", amount: 215000, status: "Completed" },
-  { id: "#ORD-7895", customer: "Olivia Davis", date: "2023-05-09", amount: 187300, status: "Pending" },
-]
+  {
+    id: "#ORD-7892",
+    customer: "John Smith",
+    date: "2023-05-12",
+    amount: 128500,
+    status: "Completed",
+  },
+  {
+    id: "#ORD-7893",
+    customer: "Emma Johnson",
+    date: "2023-05-11",
+    amount: 95700,
+    status: "Processing",
+  },
+  {
+    id: "#ORD-7894",
+    customer: "Michael Brown",
+    date: "2023-05-10",
+    amount: 215000,
+    status: "Completed",
+  },
+  {
+    id: "#ORD-7895",
+    customer: "Olivia Davis",
+    date: "2023-05-09",
+    amount: 187300,
+    status: "Pending",
+  },
+];
 
 function Home() {
-  const token = useSelector((state) => state.token)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const token = useSelector((state) => state.token);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [metrics, setMetrics] = useState({
     mrr: 79680000,
     customers: 5320,
@@ -49,7 +82,7 @@ function Home() {
     satisfaction: 98.7,
     monthlyGrowth: 12.8,
     revenueGrowth: 8.5,
-  })
+  });
 
   useEffect(() => {
     const getBrands = async () => {
@@ -58,21 +91,21 @@ function Home() {
           method: "GET",
           url: `${import.meta.env.VITE_API_URL}/brands`,
           headers: { authorization: `Bearer ${token}` },
-        })
-        dispatch(getAllBrands(response.data))
+        });
+        dispatch(getAllBrands(response.data));
       } catch (error) {
-        console.error("Error fetching brands:", error)
+        console.error("Error fetching brands:", error);
       }
-    }
-    getBrands()
-  }, [])
+    };
+    getBrands();
+  }, []);
 
   useEffect(() => {
     if (!token) {
-      navigate("/login")
-      setTimeout(() => toast.info("You need to login to access Home"), 800)
+      navigate("/login");
+      setTimeout(() => toast.info("You need to login to access Home"), 800);
     }
-  }, [token])
+  }, [token]);
 
   // Format currency
   const formatCurrency = (value) => {
@@ -81,28 +114,29 @@ function Home() {
       currency: "USD",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    }).format(value)
-  }
+    }).format(value);
+  };
 
   return (
     <div className="dashboard-container">
       <div className="dashboard-layout">
-        {/* Sidebar - Fixed height */}
         <div className="sidebar-container">
           <NavbarTop />
         </div>
 
-        {/* Main content - Scrollable */}
         <div className="main-content">
           <div className="container py-4">
-            {/* Home Header */}
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h1 className="saira-expanded-bold">Home</h1>
               <div className="d-flex align-items-center">
                 <div className="me-3 d-flex align-items-center">
                   <Calendar className="me-2" size={18} />
                   <span className="subtitle-home-styles m-0 saira-expanded-more-bold">
-                    {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                    {new Date().toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
                   </span>
                 </div>
                 <button className="btn btn-sm btn-outline-success">
@@ -111,9 +145,7 @@ function Home() {
               </div>
             </div>
 
-            {/* Metrics Cards */}
             <div className="row g-4 mb-4">
-              {/* MRR Card */}
               <div className="col-12 col-md-6 col-lg-3">
                 <div className="card border-0 h-100 bg-dark bg-opacity-75 text-light">
                   <div className="card-body p-4">
@@ -133,7 +165,6 @@ function Home() {
                 </div>
               </div>
 
-              {/* Customers Card */}
               <div className="col-12 col-md-6 col-lg-3">
                 <div className="card border-0 h-100 bg-dark bg-opacity-75 text-light">
                   <div className="card-body p-4">
@@ -143,7 +174,9 @@ function Home() {
                         <Users size={20} className="text-primary" />
                       </div>
                     </div>
-                    <h3 className="saira-expanded-more-bold">{metrics.customers.toLocaleString()}</h3>
+                    <h3 className="saira-expanded-more-bold">
+                      {metrics.customers.toLocaleString()}
+                    </h3>
                     <div className="d-flex align-items-center mt-3">
                       <ArrowUp size={16} className="text-success me-1" />
                       <span className="text-success me-1">{metrics.monthlyGrowth}%</span>
@@ -153,7 +186,6 @@ function Home() {
                 </div>
               </div>
 
-              {/* Active Customers Card */}
               <div className="col-12 col-md-6 col-lg-3">
                 <div className="card border-0 h-100 bg-dark bg-opacity-75 text-light">
                   <div className="card-body p-4">
@@ -173,7 +205,6 @@ function Home() {
                 </div>
               </div>
 
-              {/* Satisfaction Rate Card */}
               <div className="col-12 col-md-6 col-lg-3">
                 <div className="card border-0 h-100 bg-dark bg-opacity-75 text-light">
                   <div className="card-body p-4">
@@ -194,14 +225,14 @@ function Home() {
               </div>
             </div>
 
-            {/* Charts Row */}
             <div className="row g-4 mb-4">
-              {/* Market Trend Chart */}
               <div className="col-12 col-lg-8">
                 <div className="card border-0 h-100 bg-dark bg-opacity-75 text-light">
                   <div className="card-body p-4">
                     <div className="d-flex justify-content-between align-items-center mb-4">
-                      <h5 className="saira-expanded-more-bold text-center color-text-our-white">Market Trend</h5>
+                      <h5 className="saira-expanded-more-bold text-center color-text-our-white">
+                        Market Trend
+                      </h5>
                       <div className="dropdown">
                         <button
                           className="btn btn-sm btn-dark dropdown-toggle"
@@ -212,7 +243,10 @@ function Home() {
                         >
                           Last 12 Months
                         </button>
-                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        <ul
+                          className="dropdown-menu dropdown-menu-dark"
+                          aria-labelledby="dropdownMenuButton1"
+                        >
                           <li>
                             <a className="dropdown-item" href="#">
                               Last 6 Months
@@ -243,12 +277,13 @@ function Home() {
                 </div>
               </div>
 
-              {/* Sales Distribution Chart */}
               <div className="col-12 col-lg-4">
                 <div className="card border-0 h-100 bg-dark bg-opacity-75 text-light">
                   <div className="card-body p-4">
                     <div className="d-flex justify-content-between align-items-center mb-4">
-                      <h5 className="saira-expanded-more-bold text-center color-text-our-white">Sales Distribution</h5>
+                      <h5 className="saira-expanded-more-bold text-center color-text-our-white">
+                        Sales Distribution
+                      </h5>
                       <div className="dropdown">
                         <button
                           className="btn btn-sm btn-dark dropdown-toggle"
@@ -259,7 +294,10 @@ function Home() {
                         >
                           By Brand
                         </button>
-                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                        <ul
+                          className="dropdown-menu dropdown-menu-dark"
+                          aria-labelledby="dropdownMenuButton2"
+                        >
                           <li>
                             <a className="dropdown-item" href="#">
                               By Region
@@ -278,7 +316,10 @@ function Home() {
                         </ul>
                       </div>
                     </div>
-                    <div className="chart-container d-flex justify-content-center" style={{ height: "300px" }}>
+                    <div
+                      className="chart-container d-flex justify-content-center"
+                      style={{ height: "300px" }}
+                    >
                       <img
                         src="chart.png"
                         alt="Sales distribution chart"
@@ -291,7 +332,6 @@ function Home() {
               </div>
             </div>
 
-            {/* Recent Orders Table */}
             <div className="row g-4">
               <div className="col-12">
                 <div className="card border-0 bg-dark bg-opacity-75 text-light">
@@ -324,8 +364,8 @@ function Home() {
                                     order.status === "Completed"
                                       ? "bg-success"
                                       : order.status === "Processing"
-                                        ? "bg-primary"
-                                        : "bg-warning"
+                                      ? "bg-primary"
+                                      : "bg-warning"
                                   }`}
                                 >
                                   {order.status}
@@ -344,8 +384,7 @@ function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
-
+export default Home;
