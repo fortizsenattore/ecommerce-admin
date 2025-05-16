@@ -16,30 +16,6 @@ import {
 } from "lucide-react";
 import NavbarTop from "./NavbarTop";
 
-// Sample data for charts
-const marketTrendData = [
-  { month: "Jan", value: 5000 },
-  { month: "Feb", value: 8000 },
-  { month: "Mar", value: 12000 },
-  { month: "Apr", value: 10000 },
-  { month: "May", value: 15000 },
-  { month: "Jun", value: 18000 },
-  { month: "Jul", value: 22000 },
-  { month: "Aug", value: 25000 },
-  { month: "Sep", value: 30000 },
-  { month: "Oct", value: 28000 },
-  { month: "Nov", value: 32000 },
-  { month: "Dec", value: 38000 },
-];
-
-const salesData = [
-  { brand: "Ferrari", percentage: 30.5 },
-  { brand: "Porsche", percentage: 21.7 },
-  { brand: "McLaren", percentage: 13 },
-  { brand: "Audi", percentage: 8.7 },
-  { brand: "Lamborghini", percentage: 26.1 },
-];
-
 const recentOrders = [
   {
     id: "#ORD-7892",
